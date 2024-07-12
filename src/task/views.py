@@ -5,7 +5,7 @@ from .forms import TaskForm
 
 class TaskListView(ListView):
     model = Task
-    template_name = 'tasks/dashboard2.html'
+    template_name = 'tasks/dashboard.html'
     context_object_name = 'tasks'
 
 # class TaskListView(ListView):

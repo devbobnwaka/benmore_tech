@@ -15,50 +15,5 @@
         
         {% endblock %}
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // jQuery code to handle modal open/close and form submission
-        $(document).ready(function() {
-            $('#add-task-btn').on('click', function() {
-                $('#task-modal').removeClass('hidden');
-            });
-
-            $('#cancel-btn').on('click', function() {
-                $('#task-modal').addClass('hidden');
-            });
-
-            $('#task-form').on('submit', function(e) {
-                e.preventDefault();
-                // AJAX call to create/update task
-                const taskId = $('#task-id').val();
-                const url = taskId ? `/api/tasks/${taskId}/update/` : '/api/tasks/create/';
-                const method = taskId ? 'PUT' : 'POST';
-                const data = {
-                    title: $('#task-title').val(),
-                    description: $('#task-description').val(),
-                    priority: $('#task-priority').val(),
-                    // add other fields as necessary
-                };
-                $.ajax({
-                    url: url,
-                    method: method,
-                    data: data,
-                    success: function(response) {
-                        $('#task-modal').addClass('hidden');
-                        // Refresh task list
-                    },
-                    error: function(error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
-
-            // Toggle sidebar
-            $('#menu-toggle').on('click', function() {
-                $('#sidebar').toggleClass('hidden');
-            });
-        });
-    </script>
 </body>
 </html>
