@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'task',
 ]
 
+LOGIN_URL = 'auth:login'
+# LOGIN_REDIRECT_URL = "/"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

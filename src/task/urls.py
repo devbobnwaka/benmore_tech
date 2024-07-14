@@ -1,14 +1,12 @@
 from django.urls import path
-from .views import TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView
+from .views import DashboardView
 from . import api_views
 
+app_name = "task"
 urlpatterns = [
-    path('', TaskListView.as_view(), name='task_list'),
-    # path('task/<int:pk>/', TaskDetailView.as_view(), name='task_detail'),
-    # path('task/new/', TaskCreateView.as_view(), name='task_create'),
-    # path('task/<int:pk>/edit/', TaskUpdateView.as_view(), name='task_update'),
-    # path('task/<int:pk>/delete/', TaskDeleteView.as_view(), name='task_delete'),
-    path('api/tasks/', api_views.TaskListAPIView.as_view(), name='task_list_api'),
-    # path('api/tasks/<int:pk>/', api_views.TaskDetailAPIView.as_view(), name='task_detail_api'),
-    path('api/tasks/status/<str:status>/', api_views.TaskByStatusAPIView.as_view(), name='task_by_status_api'),
+    path('dashboard/', DashboardView.as_view(), name='task-dashboard'),
+    path('api/tasks/', api_views.TaskListCreateAPIView.as_view(), name='task-create-api'),
+    path('api/tasks/<int:pk>/', api_views.TaskDetailAPIView.as_view(), name='task-detail-api'),
+    path('api/tasks/<int:pk>/update/', api_views.TaskUpdateAPIView.as_view(), name='task-update-api'),
+    path('api/tasks/<int:pk>/delete/', api_views.TaskDeleteAPIView.as_view(), name='task-delete-api'),
 ]

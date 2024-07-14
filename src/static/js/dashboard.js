@@ -1,10 +1,21 @@
- import { fetchTasksByStatus, fetchAllTasks, displayTasks, displayTasksByStatus} from "./task.js";
+ import { 
+    fetchAllTasks, 
+    displayTasks, 
+    clearErrors, 
+    validateCategory, 
+    validateDescription, 
+    validateDueDate, 
+    validatePriority,
+    validateTitle,
+    submitTaskForm,
+    loadTask,
+    clearFormData,
+    loadTaskDetails,
+    deleteTask,
+    logoutBtn
+} from "./task.js";
  
  $(document).ready(function() {
-        // fetchTasksByStatus('in_progress')
-        //     .then(displayTasksByStatus)
-        //     .catch(error => console.error('Error fetching tasks:', error));
-
         fetchAllTasks()
             .then(displayTasks)
             .catch(error => console.error('Error fetching tasks:', error));
@@ -15,6 +26,7 @@
 
         $('#cancel-btn').on('click', function() {
             $('#task-modal').addClass('hidden');
+            clearFormData();
         });
 
         $('#menu-button').click(function() {
@@ -24,30 +36,69 @@
         $('#klose').click(function() {
             $('#sidebar').toggleClass('sidebar-hidden');
           });
+        
+        
+        $(document).on('click', '.task-edit-btn', function() {
+            const taskId = $(this).closest('.task-item').data('id');
+            console.log('Edit button clicked for task ID:', taskId);
+            loadTask(taskId);
+        });
 
-        $('#task-form').on('submit', function(e) {
+        $('#close-detail-modal').on('click', function() {
+            $('#detail-modal').addClass('hidden');
+        });
+
+        $(document).on('click', '.view-details-btn', function() {
+            const taskId = $(this).closest('.task-item').data('id');
+            console.log('View Details button clicked for task ID:', taskId);
+            loadTaskDetails(taskId);
+        });
+
+        $(document).on('click', '.task-delete-btn', function() {
+            const taskId = $(this).closest('.task-item').data('id');
+            if (confirm('Are you sure you want to delete this task?')) {
+                deleteTask(taskId);
+                fetchAllTasks()
+                    .then(displayTasks)
+                    .catch(error => console.error('Error fetching tasks:', error))
+            }
+        });
+
+        $('#search-form').on('submit', function(e) {
             e.preventDefault();
-            // AJAX call to create/update task
-            const taskId = $('#task-id').val();
-            const url = taskId ? `/api/tasks/${taskId}/update/` : '/api/tasks/create/';
-            const method = taskId ? 'PUT' : 'POST';
-            const data = {
-                title: $('#task-title').val(),
-                description: $('#task-description').val(),
-                priority: $('#task-priority').val(),
-                // add other fields as necessary
-            };
+            var searchQuery = $('#search-input').val();
             $.ajax({
-                url: url,
-                method: method,
-                data: data,
+                url: '/api/tasks/',
+                method: 'GET',
+                data: { search: searchQuery },
+                dataType: 'json',
                 success: function(response) {
-                    $('#task-modal').addClass('hidden');
-                    // Refresh task list
+                    // Process and display search results
+                    // console.log('Search results:', response);
+                    displayTasks(response)
                 },
                 error: function(error) {
                     console.error('Error:', error);
                 }
             });
+        });
+        
+
+        $("#logout-btn").click(function() {
+            if (confirm('Are you sure you want to logout?')) {
+                logoutBtn();
+            }
+        });
+
+        $('#task-form').on('submit', function(e) {
+            e.preventDefault();
+            clearErrors();
+            if (!validateTitle()) return;
+            if (!validateDescription()) return;
+            if (!validatePriority()) return;
+            if (!validateDueDate()) return;
+            if (!validateCategory()) return;
+            const taskId = $('#task-id').val();
+            submitTaskForm(taskId);
         });
     });
