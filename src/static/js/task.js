@@ -35,10 +35,9 @@ export function displayTasksByStatus(tasks) {
 
 
 let displayString = (task) => {
-    return`<div class="task-item draggable bg-gray-100 p-2 rounded" data-status="${task.status}">Task 5</div>
-    <div class="task-item draggable bg-gray-100 p-2 rounded" data-status="overdue">Task 6</div>`
+    // return`<div id="${task.id}" class="task-item draggable bg-gray-100 p-2 rounded " draggable="true" ondragstart="drag(event)" data-status="${task.status}">${task.status}</div>`
    return `
-            <div class="task-item draggable" data-id="${task.id}" data-status="${task.status}">
+            <div id="${task.id}" class="task-item draggable" data-id="${task.id}" data-status="${task.status}" draggable="true" ondragstart="drag(event)" >
             <input id="ID" value= ${task.id} hidden />
             <div class="flex flex-row justify-between">
                 <button class="border rounded ${priorityClass(task.priority)} mb-1 p-1">

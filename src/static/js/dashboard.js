@@ -74,8 +74,6 @@
                 data: formData,
                 dataType: 'json',
                 success: function(response) {
-                    // Process and display filtered/sorted tasks
-                    // console.log('Filtered & Sorted Tasks:', response);
                     displayTasks(response)
                 },
                 error: function(error) {
