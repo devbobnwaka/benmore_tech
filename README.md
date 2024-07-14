@@ -26,7 +26,7 @@ This project is a task management dashboard built with Django for the backend an
 ## Backend Setup
 1. Clone the Repository:
 ```bash
-git clone <repository_url>
+git clone https://github.com/devbobnwaka/benmore_tech.git
 cd <repository_directory>
 ```
 2. Create and Activate Virtual Environment:
