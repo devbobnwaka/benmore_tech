@@ -74,8 +74,8 @@ python manage.py runserver
 Register a new user or log in with the superuser credentials created during setup.
 
 ## Managing Tasks
-Add Task: Click on the "Add Task" button to open a modal dialog. Fill in the task details and save.
-Edit Task: Click on the task you want to edit to open the modal dialog with pre-filled details. Modify and save.
-Delete Task: Click on the delete icon next to the task to remove it.
-Filter and Sort Tasks: Use the dropdowns and search bar to filter and sort tasks based on status, priority, due date, and category.
-Drag-and-Drop: Drag tasks between status columns to update their status dynamically.
+- Add Task: Click on the "Add Task" button to open a modal dialog. Fill in the task details and save.
+- Edit Task: Click on the task you want to edit to open the modal dialog with pre-filled details. Modify and save.
+- Delete Task: Click on the delete icon next to the task to remove it.
+- Filter and Sort Tasks: Use the dropdowns and search bar to filter and sort tasks based on status, priority, due date, and category.
+- Drag-and-Drop: Drag tasks between status columns to update their status dynamically.
