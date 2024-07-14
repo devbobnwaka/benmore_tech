@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from django.db.models import Q
 from rest_framework import generics,status
 from rest_framework.response import Response
@@ -19,6 +20,37 @@ class TaskListCreateAPIView(LoginRequiredMixin, generics.ListCreateAPIView):
                 Q(description__icontains=search_query) |
                 Q(category__icontains=search_query)
             )
+
+       # Filter by priority
+        priority = self.request.query_params.get('priority', None)
+        if priority:
+            queryset = queryset.filter(priority=priority)
+        
+        # Filter by due date
+        due_date = self.request.query_params.get('due_date', None)
+        if due_date:
+            today = timezone.now().date()
+            if due_date == 'overdue':
+                queryset = queryset.filter(due_date__lt=today)
+            elif due_date == 'today':
+                queryset = queryset.filter(due_date=today)
+            elif due_date == 'future':
+                queryset = queryset.filter(due_date__gt=today)
+        
+        # Filter by category
+        category = self.request.query_params.get('category', None)
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        # Sort by priority, due date, or category
+        sort_by = self.request.query_params.get('sort_by', None)
+        if sort_by:
+            if sort_by == 'priority':
+                queryset = queryset.order_by('priority')
+            elif sort_by == 'due_date':
+                queryset = queryset.order_by('due_date')
+            elif sort_by == 'category':
+                queryset = queryset.order_by('category')
         return queryset
 
     def perform_create(self, serializer):

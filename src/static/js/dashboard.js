@@ -64,6 +64,29 @@
             }
         });
 
+        $('#filter-form').on('submit', function(e) {
+            $('#spinner-overlay').show();
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/api/tasks/',
+                method: 'GET',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    // Process and display filtered/sorted tasks
+                    // console.log('Filtered & Sorted Tasks:', response);
+                    displayTasks(response)
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            }).always(function() {
+                $('#spinner-overlay').hide();
+            });
+        });
+
+        
         $('#search-form').on('submit', function(e) {
             e.preventDefault();
             var searchQuery = $('#search-input').val();

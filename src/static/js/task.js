@@ -35,8 +35,10 @@ export function displayTasksByStatus(tasks) {
 
 
 let displayString = (task) => {
+    return`<div class="task-item draggable bg-gray-100 p-2 rounded" data-status="${task.status}">Task 5</div>
+    <div class="task-item draggable bg-gray-100 p-2 rounded" data-status="overdue">Task 6</div>`
    return `
-            <div class="task-item" data-id="${task.id}">
+            <div class="task-item draggable" data-id="${task.id}" data-status="${task.status}">
             <input id="ID" value= ${task.id} hidden />
             <div class="flex flex-row justify-between">
                 <button class="border rounded ${priorityClass(task.priority)} mb-1 p-1">
@@ -130,7 +132,7 @@ export function displayTasks(tasks) {
 
     tasks.forEach(function(task) {
         // taskList.append(`<li>${task.title} - ${task.description}</li>`);
-        console.log(task.status)
+        // console.log(task.status)
         if(task.status == "in_progress"){
             inProgresstaskList.append(
                 displayString(task)
