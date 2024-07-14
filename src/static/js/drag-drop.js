@@ -1,3 +1,6 @@
+// THIS FILE NEEDS TO BE OPTIMIZED --- JUST NEED TO SUBMIT IN TIME.
+
+
 function priorityClass(priority){
     if(priority == "high"){
         return "bg-red-300 text-green-900"
