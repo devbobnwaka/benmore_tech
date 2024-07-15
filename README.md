@@ -35,7 +35,7 @@ python -m venv .venv
 #for windows
 .venv\Scripts\activate
 #for mac
-source venv/bin/activate
+source .venv/bin/activate
 ```
 3. Install Dependencies:
 ```bash
@@ -43,6 +43,8 @@ pip install -r requirements.txt
 ```
 4. Setup Django Project:
 ```bash
+#Make Migration
+python manage.py makemigrations
 #Apply migrations
 python manage.py migrate
 #Create a superuser
